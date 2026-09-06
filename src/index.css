@@ -1,0 +1,193 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222 47% 11%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+
+    --primary: 152 100% 33%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 217 91% 35%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 16% 47%;
+
+    --accent: 38 92% 50%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 152 100% 33%;
+
+    --radius: 1rem;
+
+    --success: 152 100% 33%;
+    --success-foreground: 0 0% 100%;
+
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 100%;
+
+    --gradient-hero: linear-gradient(135deg, hsl(152 100% 33%) 0%, hsl(217 91% 35%) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(0 0% 100%) 0%, hsl(210 40% 98%) 100%);
+    --gradient-accent: linear-gradient(135deg, hsl(38 92% 50%) 0%, hsl(30 100% 50%) 100%);
+
+    --shadow-sm: 0 2px 8px hsl(222 47% 11% / 0.04);
+    --shadow-md: 0 4px 16px hsl(222 47% 11% / 0.08);
+    --shadow-lg: 0 8px 32px hsl(222 47% 11% / 0.12);
+    --shadow-glow: 0 0 24px hsl(152 100% 33% / 0.2);
+
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .dark {
+    --background: 222 47% 11%;
+    --foreground: 0 0% 98%;
+
+    --card: 222 47% 14%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 222 47% 14%;
+    --popover-foreground: 0 0% 98%;
+
+    --primary: 152 100% 40%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 217 91% 45%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 217 33% 17%;
+    --muted-foreground: 215 20% 65%;
+
+    --accent: 38 92% 55%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 217 33% 17%;
+    --input: 217 33% 17%;
+    --ring: 152 100% 40%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  :focus-visible {
+    outline: 3px solid hsl(var(--ring));
+    outline-offset: 3px;
+  }
+
+  button,
+  [role="button"],
+  a {
+    min-height: 2.75rem;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      scroll-behavior: auto !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold tracking-tight;
+  }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+  }
+
+  .animate-pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 0 20px hsl(152 100% 33% / 0.3); }
+    50% { box-shadow: 0 0 40px hsl(152 100% 33% / 0.6); }
+  }
+}
+
+/* Prism.js syntax highlighting theme */
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata { color: hsl(var(--muted-foreground)); font-style: italic; }
+.token.punctuation { color: hsl(var(--foreground) / 0.7); }
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted { color: hsl(0 72% 51%); }
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted { color: hsl(152 100% 33%); }
+.token.operator,
+.token.entity,
+.token.url { color: hsl(38 92% 50%); }
+.token.atrule,
+.token.attr-value,
+.token.keyword { color: hsl(217 91% 50%); }
+.token.function,
+.token.class-name { color: hsl(280 68% 50%); }
+.token.regex,
+.token.important,
+.token.variable { color: hsl(38 92% 50%); }
+
+.dark .token.property,
+.dark .token.tag,
+.dark .token.boolean,
+.dark .token.number,
+.dark .token.constant,
+.dark .token.symbol,
+.dark .token.deleted { color: hsl(0 72% 65%); }
+.dark .token.selector,
+.dark .token.attr-name,
+.dark .token.string,
+.dark .token.char,
+.dark .token.builtin,
+.dark .token.inserted { color: hsl(152 80% 55%); }
+.dark .token.atrule,
+.dark .token.attr-value,
+.dark .token.keyword { color: hsl(217 91% 65%); }
+.dark .token.function,
+.dark .token.class-name { color: hsl(280 68% 70%); }

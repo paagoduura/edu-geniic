@@ -1,0 +1,1 @@
+ALTER TABLE public.assignments ADD COLUMN target_class_id uuid REFERENCES public.teacher_classes(id) ON DELETE SET NULL;

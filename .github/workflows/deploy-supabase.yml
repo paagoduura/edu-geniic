@@ -1,0 +1,53 @@
+name: Deploy Supabase
+
+on:
+  workflow_dispatch:
+    inputs:
+      deploy_functions:
+        description: Deploy edge functions after applying migrations
+        required: true
+        default: true
+        type: boolean
+
+defaults:
+  run:
+    shell: bash
+
+permissions:
+  contents: read
+
+env:
+  SUPABASE_PROJECT_REF: ${{ secrets.SUPABASE_PROJECT_REF }}
+  SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+  SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+  SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+  SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+  ALLOWED_ORIGINS: ${{ secrets.ALLOWED_ORIGINS }}
+  LOVABLE_API_KEY: ${{ secrets.LOVABLE_API_KEY }}
+  OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+  ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}
+  INTERSWITCH_MERCHANT_CODE: ${{ secrets.INTERSWITCH_MERCHANT_CODE }}
+  INTERSWITCH_PAY_ITEM_ID: ${{ secrets.INTERSWITCH_PAY_ITEM_ID }}
+  INTERSWITCH_MAC_KEY: ${{ secrets.INTERSWITCH_MAC_KEY }}
+  INTERSWITCH_MODE: ${{ secrets.INTERSWITCH_MODE }}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install Supabase CLI
+        run: npm install --global supabase@latest
+      - name: Validate deployment variables
+        run: npm run check:edge-secrets
+      - name: Apply migrations and deploy functions
+        if: ${{ inputs.deploy_functions }}
+        run: ./scripts/deploy-supabase.sh
+      - name: Apply migrations only
+        if: ${{ !inputs.deploy_functions }}
+        run: supabase link --project-ref "$SUPABASE_PROJECT_REF" && supabase db push --linked

@@ -1,0 +1,37 @@
+project_id = "mmborzqmzwkdzzetbeus"
+
+[functions.coding-lesson]
+verify_jwt = true
+
+[functions.generate-lesson]
+verify_jwt = true
+
+[functions.generate-quiz]
+verify_jwt = true
+
+[functions.evaluate-quiz]
+verify_jwt = true
+
+[functions.student-progress]
+verify_jwt = true
+
+[functions.translate]
+verify_jwt = true
+
+[functions.text-to-speech]
+verify_jwt = true
+
+[functions.voice-teach]
+verify_jwt = true
+
+[functions.ai-study-buddy]
+verify_jwt = true
+
+[functions.elevenlabs-scribe-token]
+verify_jwt = true
+
+[functions.generate-competition]
+verify_jwt = true
+
+[functions.interswitch-payment]
+verify_jwt = true
